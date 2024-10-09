@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "play": "tsc && lite-server",
     "start": "lite-server",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
