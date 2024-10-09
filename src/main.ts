@@ -35,6 +35,7 @@ class Game {
   }
 
   renderHand() {
+    console.log('rendering hand');
     const handContainer = document.getElementById("player-hand")!;
     handContainer.innerHTML = "";
 

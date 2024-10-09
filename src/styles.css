@@ -17,6 +17,7 @@ body {
 #game-board {
     display: flex;
     margin: 20px;
+    background-color: red;
 }
 
 .card {

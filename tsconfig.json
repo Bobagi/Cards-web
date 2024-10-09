@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "moduleResolution": "nodenext",
     "target": "es6",
-    "module": "NodeNext",
+    "module": "es6",  // Altere para 'es6' ou 'esnext'
     "outDir": "./dist",
-    "strict": true
+    "strict": true,
+    "moduleResolution": "node", // Certifica-se que o TS está resolvendo módulos corretamente
+    "esModuleInterop": true     // Facilita a interoperabilidade com módulos CommonJS
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
