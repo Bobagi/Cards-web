@@ -96,13 +96,27 @@ class Game {
     }
   }
 
-  updateBoard(card: Card, player: string) {
+    updateBoard(card: Card, player: string) {
     const boardContainer = document.getElementById("game-board")!;
     const cardDiv = document.createElement("div");
     cardDiv.className = "card";
-    cardDiv.textContent = `${card.name} (${player}) - Força: ${card.strength}, Magia: ${card.magic}, Fogo: ${card.fire}`;
+
+    cardDiv.innerHTML = `
+        <div class="card-header">
+        <span class="card-number">(${player}) #${card.number}</span>
+        <span class="card-number">${card.name}</span>
+        </div>
+        <img src="${card.art}" alt="${card.name}" class="card-art">
+        <div class="card-stats">
+        <p>Força: ${card.strength}</p>
+        <p>Magia: ${card.magic}</p>
+        <p>Fogo: ${card.fire}</p>
+        </div>
+    `;
+
     boardContainer.appendChild(cardDiv);
-  }
+    }
+
 }
 
 const game = new Game();
