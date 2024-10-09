@@ -3,11 +3,6 @@ interface Card {
   value: string; // "A", "2", "3", ..., "K"
 }
 
-interface Card {
-  suit: string;  // "hearts", "diamonds", "clubs", "spades"
-  value: string; // "A", "2", "3", ..., "K"
-}
-
 class Game {
   private playerHand: Card[] = [];
   private botHand: Card[] = [];
@@ -41,29 +36,39 @@ class Game {
     this.botHand = this.deck.slice(num, num * 2);
   }
 
-  renderHands() {
-    const playerHandContainer = document.getElementById("player-hand")!;
-    const botHandContainer = document.getElementById("bot-hand")!;
-    playerHandContainer.innerHTML = "<h2>Player's Hand</h2>";
-    botHandContainer.innerHTML = "<h2>Bot's Hand</h2>";
+    renderHands() {
+        const playerHandContainer = document.getElementById("player-hand")!;
+        const botHandContainer = document.getElementById("bot-hand")!;
+        playerHandContainer.innerHTML = "<h2>Player's Hand</h2>";
+        botHandContainer.innerHTML = "<h2>Bot's Hand</h2>";
 
-    // Render player hand with clickable cards
-    this.playerHand.forEach((card, index) => {
-      const cardDiv = document.createElement("div");
-      cardDiv.className = "card";
-      cardDiv.textContent = `${card.value} of ${card.suit}`;
-      cardDiv.onclick = () => this.playerPlay(index); // Click event to play card
-      playerHandContainer.appendChild(cardDiv);
-    });
+        // Render player hand with clickable cards
+        this.playerHand.forEach((card, index) => {
+            const cardDiv = document.createElement("div");
+            cardDiv.className = "card js-tilt"; // Add the 'js-tilt' class
+            cardDiv.setAttribute("data-tilt", ""); // Add the 'data-tilt' attribute
+            cardDiv.textContent = `${card.value} of ${card.suit}`;
+            cardDiv.onclick = () => this.playerPlay(index); // Click event to play card
+            playerHandContainer.appendChild(cardDiv);
+        });
 
-    // Render bot hand (cards face down)
-    this.botHand.forEach(() => {
-      const cardDiv = document.createElement("div");
-      cardDiv.className = "card";
-      cardDiv.textContent = "???"; // Cards face down
-      botHandContainer.appendChild(cardDiv);
-    });
-  }
+        // Render bot hand (cards face down)
+        this.botHand.forEach(() => {
+            const cardDiv = document.createElement("div");
+            cardDiv.className = "card"; // No tilt for bot cards
+            cardDiv.textContent = "???"; // Cards face down
+            botHandContainer.appendChild(cardDiv);
+        });
+
+        $('.js-tilt').tilt({
+            scale: 1.2,     
+            maxTilt: 15,      
+            speed: 400,       
+            glare: false,    
+            "max-glare": 0.5
+        });
+    }
+
 
   playerPlay(cardIndex: number) {
     const card = this.playerHand.splice(cardIndex, 1)[0];
@@ -91,6 +96,23 @@ class Game {
     cardDiv.className = "card";
     cardDiv.textContent = `${card.value} of ${card.suit} (${player})`;
     boardContainer.appendChild(cardDiv);
+  }
+
+  tiltCard(event: MouseEvent, cardDiv: HTMLElement) {
+    const rect = cardDiv.getBoundingClientRect();
+    const x = event.clientX - rect.left; // Mouse X position relative to the card
+    const y = event.clientY - rect.top;  // Mouse Y position relative to the card
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = (y - centerY) / 10; // Rotation around X axis (up/down tilt)
+    const rotateY = (centerX - x) / 10; // Rotation around Y axis (left/right tilt)
+
+    cardDiv.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  }
+
+  resetTilt(cardDiv: HTMLElement) {
+    cardDiv.style.transform = `rotateX(0deg) rotateY(0deg)`; // Reset the tilt
   }
 }
 

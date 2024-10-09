@@ -7,6 +7,9 @@
     "moduleResolution": "node", // Certifica-se que o TS está resolvendo módulos corretamente
     "esModuleInterop": true     // Facilita a interoperabilidade com módulos CommonJS
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/tilt.d.ts"
+  ],
   "exclude": ["node_modules"]
 }

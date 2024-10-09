@@ -21,20 +21,22 @@ body {
 }
 
 .card {
-    width: 100px;
-    height: 150px;
-    margin: 5px;
-    background-color: white;
+    width: 120px;
+    height: 180px;
+    margin: 10px;
+    background-color: #fff;
     border: 1px solid #000;
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .card:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
