@@ -10,13 +10,27 @@
 
 <body>
     <div id="game-container">
-        <div id="player-hand"></div>
-        <div id="bot-hand"></div>
-        <div id="game-board"></div>
+
+        <div display="flex" style="flex-direction: column;">
+            <div>
+                <p>Bot's hand</p>
+            </div>
+            <div id="bot-hand"></div>
+        </div>
+        <fieldset id="fieldset-game-board">
+            <div id="game-board"></div>
+        </fieldset>
+        <div display="flex" style="flex-direction: column;">
+            <div>
+                <p>Player's hand</p>
+            </div>
+            <div id="player-hand"></div>
+        </div>
+
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
     <script type="module" src="dist/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
 </body>
 
 </html>

@@ -13,28 +13,34 @@ body {
     height: 100vh;
 }
 
+#fieldset-game-board{
+    min-width: 50vw;
+    min-height: 30vh;
+}
+
 #player-hand,
 #bot-hand,
 #game-board {
     display: flex;
     margin: 20px;
+    justify-content: center;
 }
 
 .card {
     width: 150px;
-    height: 250px;
+    height: auto;
     margin: 10px;
     background-color: #fff;
     border: 2px solid #000;
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
-    padding: 10px;
+    padding: 0;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s;
+    /* transition: transform 0.3s; */
 }
 
 .card:hover {
@@ -42,16 +48,35 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-.card-header {
-    width: 100%;
+.card-content {
+    position: relative;
+    width: 150px;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #000;
+    border-radius: 5px;
+    color: white;
+    /* Coloque a cor do texto como branca para ser visível sobre a imagem */
     display: flex;
-    justify-content: flex-end;
-    font-weight: bold;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-header,
+.card-stats {
+    position: relative;
+    text-align-last: end;
+    z-index: 1;
+    padding: 10px;
+    background: rgba(0, 0, 0, 1);
+    /* Fundo escuro semi-transparente para melhorar a legibilidade */
+    border-radius: 5px;
 }
 
 .card-number {
     font-size: 16px;
-    color: #333;
+    color: white;
 }
 
 .card-art {
@@ -61,12 +86,8 @@ body {
     border-radius: 5px;
 }
 
-.card-stats {
-    width: 100%;
-    text-align: left;
-}
-
 .card-stats p {
     margin: 2px 0;
     font-size: 12px;
+    color: white;
 }

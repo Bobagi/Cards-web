@@ -21,10 +21,10 @@ class Game {
 
   createDeck() {
     this.deck = [
-      { number: 1, strength: 10, magic: 5, fire: 3, art: 'images/1.png', name: 'Dragão de Fogo' },
-      { number: 2, strength: 6, magic: 8, fire: 2, art: 'images/2.png', name: 'Dragão de Gelo' },
-      { number: 3, strength: 10, magic: 5, fire: 3, art: 'images/1.png', name: 'Dragão de Água' },
-      { number: 4, strength: 6, magic: 8, fire: 2, art: 'images/2.png', name: 'Dragão de Terra' },
+      { number: 1, strength: 10, magic: 5, fire: 3, art: 'images/1.png', name: 'Dragão Mestre' },
+      { number: 2, strength: 6, magic: 8, fire: 2, art: 'images/2.png', name: 'Dragão Dourado' },
+      { number: 3, strength: 10, magic: 5, fire: 3, art: 'images/3.png', name: 'Dragão Prateado' },
+      { number: 4, strength: 6, magic: 8, fire: 2, art: 'images/4.png', name: 'Dragão Cobre' },
       // Continue criando mais cartas
     ];
   }
@@ -41,8 +41,8 @@ class Game {
   renderHands() {
     const playerHandContainer = document.getElementById("player-hand")!;
     const botHandContainer = document.getElementById("bot-hand")!;
-    playerHandContainer.innerHTML = "<h2>Player's Hand</h2>";
-    botHandContainer.innerHTML = "<h2>Bot's Hand</h2>";
+    playerHandContainer.innerHTML = "<p></p>";
+    botHandContainer.innerHTML = "<p></p>";
 
     // Render player hand with customized cards
     this.playerHand.forEach((card, index) => {
@@ -50,14 +50,15 @@ class Game {
       cardDiv.className = "card js-tilt";
 
       cardDiv.innerHTML = `
-        <div class="card-header">
-          <span class="card-number">#${card.number}</span>
-        </div>
-        <img src="${card.art}" alt="${card.name}" class="card-art">
-        <div class="card-stats">
-          <p>Força: ${card.strength}</p>
-          <p>Magia: ${card.magic}</p>
-          <p>Fogo: ${card.fire}</p>
+        <div class="card-content" style="background-image: url('${card.art}')">
+          <div class="card-header">
+            <span class="card-number">#${card.number}</span>
+          </div>
+          <div class="card-stats">
+            <p>Força: ${card.strength}</p>
+            <p>Magia: ${card.magic}</p>
+            <p>Fogo: ${card.fire}</p>
+          </div>
         </div>
       `;
 
@@ -74,11 +75,11 @@ class Game {
     });
 
     $('.js-tilt').tilt({
-        scale: 1.2,     
-        maxTilt: 15,      
-        speed: 800,       
-        glare: false,    
-        "max-glare": 0.5
+      scale: 1.2,     
+      maxTilt: 15,      
+      speed: 800,       
+      glare: false,    
+      "max-glare": 0.5
     });
   }
 
@@ -96,26 +97,26 @@ class Game {
     }
   }
 
-    updateBoard(card: Card, player: string) {
+  updateBoard(card: Card, player: string) {
     const boardContainer = document.getElementById("game-board")!;
     const cardDiv = document.createElement("div");
-    cardDiv.className = "card";
+    cardDiv.className = "card js-tilt";
 
     cardDiv.innerHTML = `
+      <div class="card-content" style="background-image: url('${card.art}')">
         <div class="card-header">
-        <span class="card-number">(${player}) #${card.number}</span>
-        <span class="card-number">${card.name}</span>
+          <span class="card-number">(${player}) #${card.number}</span>
         </div>
-        <img src="${card.art}" alt="${card.name}" class="card-art">
         <div class="card-stats">
-        <p>Força: ${card.strength}</p>
-        <p>Magia: ${card.magic}</p>
-        <p>Fogo: ${card.fire}</p>
+          <p>Força: ${card.strength}</p>
+          <p>Magia: ${card.magic}</p>
+          <p>Fogo: ${card.fire}</p>
         </div>
+      </div>
     `;
 
     boardContainer.appendChild(cardDiv);
-    }
+  }
 
 }
 
