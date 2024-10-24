@@ -15,7 +15,7 @@ class Game {
   constructor() {
     this.createDeck();
     this.shuffleDeck();
-    this.dealCards(2);
+    this.dealCards(this.deck.length / 2);
     this.renderHands();
   }
 
@@ -25,6 +25,10 @@ class Game {
       { number: 2, strength: 6, magic: 8, fire: 2, art: 'images/2.png', name: 'Dragão Dourado' },
       { number: 3, strength: 10, magic: 5, fire: 3, art: 'images/3.png', name: 'Dragão Prateado' },
       { number: 4, strength: 6, magic: 8, fire: 2, art: 'images/4.png', name: 'Dragão Cobre' },
+      { number: 5, strength: 10, magic: 5, fire: 3, art: 'images/1.png', name: 'Dragão Mestre' },
+      { number: 6, strength: 6, magic: 8, fire: 2, art: 'images/2.png', name: 'Dragão Dourado' },
+      { number: 7, strength: 10, magic: 5, fire: 3, art: 'images/3.png', name: 'Dragão Prateado' },
+      { number: 8, strength: 6, magic: 8, fire: 2, art: 'images/4.png', name: 'Dragão Cobre' },
       // Continue criando mais cartas
     ];
   }
@@ -52,7 +56,7 @@ class Game {
       cardDiv.innerHTML = `
         <div class="card-content" style="background-image: url('${card.art}')">
           <div class="card-header">
-            <span class="card-number">#${card.number}</span>
+            <span class="card-number">${card.name} #${card.number}</span>
           </div>
           <div class="card-stats">
             <p>Força: ${card.strength}</p>
