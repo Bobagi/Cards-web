@@ -78,8 +78,8 @@ class Game {
       scale: 1.2,     
       maxTilt: 15,      
       speed: 800,       
-      glare: false,    
-      "max-glare": 0.5
+      glare: true,    
+      maxGlare: 0.3
     });
   }
 
