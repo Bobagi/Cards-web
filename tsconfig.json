@@ -9,7 +9,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/tilt.d.ts"
-  ],
+    "src/*.ts",
+    "src/tilt.d.ts",
+    "main.ts"  ],
   "exclude": ["node_modules"]
 }

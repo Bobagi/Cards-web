@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "play": "tsc && lite-server",
+    "play": "tsc && node fix-extensions.js && lite-server",
     "start": "lite-server",
-    "build": "tsc",
+    "build": "tsc && node fix-extensions.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
