@@ -21,7 +21,7 @@ renderPlayerHand(playerHand: card[], playerDeck: card[], playerPlayCallback: (in
       </div>`;
     cardDiv.onclick = () => playerPlayCallback(index);
 
-    this.animateCardFromDeckToHand(cardDiv, playerDeckContainer, playerHandContainer);
+    this.animateCard(cardDiv, playerDeckContainer, playerHandContainer);
   });
 
   $('.js-tilt').tilt({ scale: 1.2, maxTilt: 15, speed: 800, glare: true, maxGlare: 0.3 });
@@ -39,25 +39,25 @@ renderOpponentHand(opponentHand: card[], opponentDeck: card[]) {
     cardDiv.className = "card";
     cardDiv.innerHTML = `<img src="images/card-back.png" alt="Card Back" class="card-art">`;
 
-    this.animateCardFromDeckToHand(cardDiv, opponentDeckContainer, opponentHandContainer);
+    this.animateCard(cardDiv, opponentDeckContainer, opponentHandContainer);
   });
 
   this.renderDeck(opponentDeck, "opponentDeckDiv");
 }
 
-animateCardFromDeckToHand(cardElement: HTMLElement, deckContainer: HTMLElement, handContainer: HTMLElement) {
-  const deckRect = deckContainer.getBoundingClientRect();
+animateCard(cardElement: HTMLElement, originContainer: HTMLElement, targetContainer: HTMLElement) {
+  const originRect = originContainer.getBoundingClientRect();
   cardElement.style.position = 'absolute';
-  cardElement.style.left = `${deckRect.left}px`;
-  cardElement.style.top = `${deckRect.top}px`;
+  cardElement.style.left = `${originRect.left}px`;
+  cardElement.style.top = `${originRect.top}px`;
   cardElement.style.opacity = '0';
 
   document.body.appendChild(cardElement);
 
-  const handRect = handContainer.getBoundingClientRect();
+  const handRect = targetContainer.getBoundingClientRect();
   setTimeout(() => {
     cardElement.style.transition = 'all 0.5s ease'; 
-    cardElement.style.left = `${handRect.left + handContainer.childElementCount * 120}px`;
+    cardElement.style.left = `${handRect.left + targetContainer.childElementCount * 120}px`;
     cardElement.style.top = `${handRect.top}px`;
     cardElement.style.opacity = '1';
 
@@ -66,7 +66,7 @@ animateCardFromDeckToHand(cardElement: HTMLElement, deckContainer: HTMLElement, 
       cardElement.style.left = '';
       cardElement.style.top = '';
       cardElement.style.transition = '';
-      handContainer.appendChild(cardElement);
+      targetContainer.appendChild(cardElement);
     }, 500);
   }, 10);
 }
@@ -98,13 +98,15 @@ animateCardFromDeckToHand(cardElement: HTMLElement, deckContainer: HTMLElement, 
           <p>Fogo: ${card.fire}</p>
         </div>
       </div>`;
-    boardContainer.appendChild(cardDiv);
 
     if(player != "Player"){
+      this.animateCard(cardDiv, document.getElementById("opponent-hand")!, boardContainer);
       const boardDivisor = document.createElement("div");
       boardDivisor.className = "divider";
       boardDivisor.innerHTML = "";
       boardContainer.appendChild(boardDivisor);
+    }else{
+      this.animateCard(cardDiv, document.getElementById("player-hand")!, boardContainer);
     }
   }
 
