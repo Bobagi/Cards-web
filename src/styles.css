@@ -101,7 +101,7 @@ body {
 }
 
 .divider {
-  width: 2px;
+  min-width: 2px;
   background-color: burlywood;
   margin: 0 10px;
 }

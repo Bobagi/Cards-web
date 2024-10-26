@@ -1,62 +1,88 @@
 import { card } from '../models/card';
 
 export class renderService {
-  renderHands(playerHand: card[], opponentHand: card[], playerDeck: card[], opponentDeck: card[], playerPlayCallback: (index: number) => void) {
-    const playerHandContainer = document.getElementById("player-hand")!;
-    const opponentHandContainer = document.getElementById("opponent-hand")!;
-    playerHandContainer.innerHTML = "";
-    opponentHandContainer.innerHTML = "";
+renderPlayerHand(playerHand: card[], playerDeck: card[], playerPlayCallback: (index: number) => void) {
+  const playerHandContainer = document.getElementById("player-hand")!;
+  const playerDeckContainer = document.getElementById("playerDeckDiv")!;
+  
+  playerHandContainer.innerHTML = "";
 
-    playerHand.forEach((card, index) => {
-      const cardDiv = document.createElement("div");
-      cardDiv.className = "card js-tilt";
-      cardDiv.innerHTML = `
-        <div class="card-content" style="background-image: url('${card.art}')">
-          <div class="card-header"><span class="card-number">${card.name} #${card.number}</span></div>
-          <div class="card-stats">
-            <p>Força: ${card.strength}</p>
-            <p>Magia: ${card.magic}</p>
-            <p>Fogo: ${card.fire}</p>
-          </div>
-        </div>`;
-      cardDiv.onclick = () => playerPlayCallback(index);
-      playerHandContainer.appendChild(cardDiv);
-    });
+  playerHand.forEach((card, index) => {
+    const cardDiv = document.createElement("div");
+    cardDiv.className = "card js-tilt";
+    cardDiv.innerHTML = `
+      <div class="card-content" style="background-image: url('${card.art}')">
+        <div class="card-header"><span class="card-number">${card.name} #${card.number}</span></div>
+        <div class="card-stats">
+          <p>Força: ${card.strength}</p>
+          <p>Magia: ${card.magic}</p>
+          <p>Fogo: ${card.fire}</p>
+        </div>
+      </div>`;
+    cardDiv.onclick = () => playerPlayCallback(index);
 
-    opponentHand.forEach(() => {
-      const cardDiv = document.createElement("div");
-      cardDiv.className = "card";
-      cardDiv.innerHTML = `<img src="images/card-back.png" alt="card Back" class="card-art">`;
-      opponentHandContainer.appendChild(cardDiv);
-    });
+    this.animateCardFromDeckToHand(cardDiv, playerDeckContainer, playerHandContainer);
+  });
 
-    $('.js-tilt').tilt({ scale: 1.2, maxTilt: 15, speed: 800, glare: true, maxGlare: 0.3 });
+  $('.js-tilt').tilt({ scale: 1.2, maxTilt: 15, speed: 800, glare: true, maxGlare: 0.3 });
+  this.renderDeck(playerDeck, "playerDeckDiv");
+}
 
-    this.renderDecks(playerDeck, opponentDeck);
-  }
+renderOpponentHand(opponentHand: card[], opponentDeck: card[]) {
+  const opponentHandContainer = document.getElementById("opponent-hand")!;
+  const opponentDeckContainer = document.getElementById("opponentDeckDiv")!;
 
-  renderDecks(playerDeck: card[], opponentDeck: card[]) { 
-    const playerDeckContainer = document.getElementById("playerDeckDiv")!;
-    const opponentDeckContainer = document.getElementById("opponentDeckDiv")!;
-    playerDeckContainer.innerHTML = "";
-    opponentDeckContainer.innerHTML = "";
+  opponentHandContainer.innerHTML = "";
 
-    const playerDeckDiv = document.createElement("div");
-    playerDeckDiv.className = "card";
-    playerDeckDiv.innerHTML = `
+  opponentHand.forEach(() => {
+    const cardDiv = document.createElement("div");
+    cardDiv.className = "card";
+    cardDiv.innerHTML = `<img src="images/card-back.png" alt="Card Back" class="card-art">`;
+
+    this.animateCardFromDeckToHand(cardDiv, opponentDeckContainer, opponentHandContainer);
+  });
+
+  this.renderDeck(opponentDeck, "opponentDeckDiv");
+}
+
+animateCardFromDeckToHand(cardElement: HTMLElement, deckContainer: HTMLElement, handContainer: HTMLElement) {
+  const deckRect = deckContainer.getBoundingClientRect();
+  cardElement.style.position = 'absolute';
+  cardElement.style.left = `${deckRect.left}px`;
+  cardElement.style.top = `${deckRect.top}px`;
+  cardElement.style.opacity = '0';
+
+  document.body.appendChild(cardElement);
+
+  const handRect = handContainer.getBoundingClientRect();
+  setTimeout(() => {
+    cardElement.style.transition = 'all 0.5s ease'; 
+    cardElement.style.left = `${handRect.left + handContainer.childElementCount * 120}px`;
+    cardElement.style.top = `${handRect.top}px`;
+    cardElement.style.opacity = '1';
+
+    setTimeout(() => {
+      cardElement.style.position = '';
+      cardElement.style.left = '';
+      cardElement.style.top = '';
+      cardElement.style.transition = '';
+      handContainer.appendChild(cardElement);
+    }, 500);
+  }, 10);
+}
+
+  renderDeck(deck: card[], deckDivName: string) { 
+    const deckContainer = document.getElementById(deckDivName)!;
+    deckContainer.innerHTML = "";
+
+    const deckDiv = document.createElement("div");
+    deckDiv.className = "card";
+    deckDiv.innerHTML = `
       <div class="card-content" style="background-image: url('images/card-back.png')">
-        <div class="card-header"><span class="card-number">${playerDeck.length}</span></div>
+        <div class="card-header"><span class="card-number">${deck.length}</span></div>
       </div>`;
 
-    playerDeckContainer.appendChild(playerDeckDiv);
-
-    const opponentDeckDiv = document.createElement("div");
-    opponentDeckContainer.className = "card";
-    opponentDeckContainer.innerHTML = `
-      <div class="card-content" style="background-image: url('images/card-back.png')">
-        <div class="card-header"><span class="card-number">${opponentDeck.length}</span></div>
-      </div>`;
-    opponentDeckContainer.appendChild(opponentDeckDiv);
+    deckContainer.appendChild(deckDiv);
   }
 
   updateBoard(card: card, player: string) {

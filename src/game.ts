@@ -39,8 +39,13 @@ export class game {
     this.callRenderHandsMethod();
   }
 
-  callRenderHandsMethod(){
-    this.renderService.renderHands(this.playerHand, this.opponentHand, this.playerDeck, this.opponentDeck, (index) => this.playerPlay(index));
+  callRenderHandsMethod(whoDrawCards: string = "Both") {
+    if (whoDrawCards !== "Opponent") {
+      this.renderService.renderPlayerHand(this.playerHand, this.playerDeck, (index) => this.playerPlay(index));
+    }
+    if (whoDrawCards !== "Player") {
+      this.renderService.renderOpponentHand(this.opponentHand, this.opponentDeck);
+    }
   }
 
   checkGameOver(): boolean {
