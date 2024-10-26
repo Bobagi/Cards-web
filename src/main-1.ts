@@ -5,7 +5,7 @@
 
 // class GameFrenchDeck {
 //   private playerHand: Card[] = [];
-//   private botHand: Card[] = [];
+//   private opponentHand: Card[] = [];
 //   private deck: Card[] = [];
 
 //   constructor() {
@@ -33,14 +33,14 @@
 
 //   dealCards(num: number) {
 //     this.playerHand = this.deck.slice(0, num);
-//     this.botHand = this.deck.slice(num, num * 2);
+//     this.opponentHand = this.deck.slice(num, num * 2);
 //   }
 
 //     renderHands() {
 //         const playerHandContainer = document.getElementById("player-hand")!;
-//         const botHandContainer = document.getElementById("bot-hand")!;
+//         const opponentHandContainer = document.getElementById("opponent-hand")!;
 //         playerHandContainer.innerHTML = "<h2>Player's Hand</h2>";
-//         botHandContainer.innerHTML = "<h2>Bot's Hand</h2>";
+//         opponentHandContainer.innerHTML = "<h2>Opponent's Hand</h2>";
 
 //         // Render player hand with clickable cards
 //         this.playerHand.forEach((card, index) => {
@@ -52,12 +52,12 @@
 //             playerHandContainer.appendChild(cardDiv);
 //         });
 
-//         // Render bot hand (cards face down)
-//         this.botHand.forEach(() => {
+//         // Render opponent hand (cards face down)
+//         this.opponentHand.forEach(() => {
 //             const cardDiv = document.createElement("div");
-//             cardDiv.className = "card"; // No tilt for bot cards
+//             cardDiv.className = "card"; // No tilt for opponent cards
 //             cardDiv.textContent = "???"; // Cards face down
-//             botHandContainer.appendChild(cardDiv);
+//             opponentHandContainer.appendChild(cardDiv);
 //         });
 
 //         $('.js-tilt').tilt({
@@ -75,18 +75,18 @@
 //     if (card) {
 //       console.log(`Player played: ${card.value} of ${card.suit}`);
 //       this.updateBoard(card, "Player");
-//       this.botPlay(); // After the player plays, bot plays automatically
+//       this.opponentPlay(); // After the player plays, opponent plays automatically
 //     }
 //     this.renderHands(); // Re-render the player's hand after playing a card
 //   }
 
-//   botPlay() {
-//     const card = this.botHand.pop(); // Bot plays the last card in its hand
+//   opponentPlay() {
+//     const card = this.opponentHand.pop(); // Opponent plays the last card in its hand
 //     if (card) {
-//       console.log(`Bot played: ${card.value} of ${card.suit}`);
-//       this.updateBoard(card, "Bot");
+//       console.log(`Opponent played: ${card.value} of ${card.suit}`);
+//       this.updateBoard(card, "Opponent");
 //     } else {
-//       console.log("Bot has no cards left!");
+//       console.log("Opponent has no cards left!");
 //     }
 //   }
 

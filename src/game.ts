@@ -61,7 +61,7 @@ export class game {
     const playerCard = this.playerHand.splice(cardIndex, 1)[0];
 
     this.renderService.updateBoard(playerCard, "Player");
-    const opponentCard = this.botPlay();
+    const opponentCard = this.opponentPlay();
 
     if(!playerCard || !opponentCard){
       alert("FATAL ERROR!");
@@ -74,10 +74,10 @@ export class game {
     }
   }
 
-  botPlay(): card | null {
+  opponentPlay(): card | null {
     const card = this.opponentHand.pop();
     if (card) {
-      this.renderService.updateBoard(card, "Bot");
+      this.renderService.updateBoard(card, "Opponent");
       return card;
     }
     this.checkGameOver();

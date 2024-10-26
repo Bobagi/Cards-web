@@ -1,17 +1,17 @@
 import { card } from './models/card';
 
 export class rules {
-  static compareCards(playerCard: card, botCard: card, attribute: 'strength' | 'magic' | 'fire'): string {
+  static compareCards(playerCard: card, opponentCard: card, attribute: 'strength' | 'magic' | 'fire'): string {
     const playerValue = playerCard[attribute];
-    const botValue = botCard[attribute];
+    const opponentValue = opponentCard[attribute];
 
-    if (playerValue > botValue){
+    if (playerValue > opponentValue){
       alert('Player wins');
       return 'Player';
     }
-    if (botValue > playerValue){
+    if (opponentValue > playerValue){
       alert('Opponent wins');
-      return 'Bot';
+      return 'Opponent';
     }
     return 'Draw';
   }
@@ -19,21 +19,21 @@ export class rules {
   static handleRoundOutcome(
     winner: string,
     playerCard: card,
-    botCard: card,
+    opponentCard: card,
     playerDeck: card[],
-    botDeck: card[]
+    opponentDeck: card[]
   ) {
     if (winner === 'Player') {
-      playerDeck.push(botCard!);
-    } else if (winner === 'Bot') {
-      botDeck.push(playerCard!);
+      playerDeck.push(opponentCard!);
+    } else if (winner === 'Opponent') {
+      opponentDeck.push(playerCard!);
     }
     // Empate: ambas as cartas são descartadas (opcional)
   }
 
-  static checkGameOver(playerDeck: card[], botDeck: card[]): string | null {
-    if (playerDeck.length === 0) return 'Bot';
-    if (botDeck.length === 0) return 'Player';
+  static checkGameOver(playerDeck: card[], opponentDeck: card[]): string | null {
+    if (playerDeck.length === 0) return 'Opponent';
+    if (opponentDeck.length === 0) return 'Player';
     return null;
   }
 }

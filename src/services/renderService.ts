@@ -1,11 +1,11 @@
 import { card } from '../models/card';
 
 export class renderService {
-  renderHands(playerHand: card[], botHand: card[], playerDeck: card[], opponentDeck: card[], playerPlayCallback: (index: number) => void) {
+  renderHands(playerHand: card[], opponentHand: card[], playerDeck: card[], opponentDeck: card[], playerPlayCallback: (index: number) => void) {
     const playerHandContainer = document.getElementById("player-hand")!;
-    const botHandContainer = document.getElementById("bot-hand")!;
+    const opponentHandContainer = document.getElementById("opponent-hand")!;
     playerHandContainer.innerHTML = "";
-    botHandContainer.innerHTML = "";
+    opponentHandContainer.innerHTML = "";
 
     playerHand.forEach((card, index) => {
       const cardDiv = document.createElement("div");
@@ -23,11 +23,11 @@ export class renderService {
       playerHandContainer.appendChild(cardDiv);
     });
 
-    botHand.forEach(() => {
+    opponentHand.forEach(() => {
       const cardDiv = document.createElement("div");
       cardDiv.className = "card";
       cardDiv.innerHTML = `<img src="images/card-back.png" alt="card Back" class="card-art">`;
-      botHandContainer.appendChild(cardDiv);
+      opponentHandContainer.appendChild(cardDiv);
     });
 
     $('.js-tilt').tilt({ scale: 1.2, maxTilt: 15, speed: 800, glare: true, maxGlare: 0.3 });
