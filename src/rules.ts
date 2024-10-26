@@ -5,8 +5,14 @@ export class rules {
     const playerValue = playerCard[attribute];
     const botValue = botCard[attribute];
 
-    if (playerValue > botValue) return 'Player';
-    if (botValue > playerValue) return 'Bot';
+    if (playerValue > botValue){
+      alert('Player wins');
+      return 'Player';
+    }
+    if (botValue > playerValue){
+      alert('Opponent wins');
+      return 'Bot';
+    }
     return 'Draw';
   }
 

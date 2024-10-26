@@ -25,6 +25,7 @@ export class game {
     // Pega a primeira carta de cada baralho como a "mão" do jogador e oponente
     if(this.playerDeck.length > 0){
       this.dealcards(this.playerDeck, this.playerHand, 1);
+      console.log(this.playerDeck);
     }else{
       this.checkGameOver();
     }
@@ -35,7 +36,11 @@ export class game {
       this.checkGameOver();
     }
 
-    this.renderService.renderHands(this.playerHand, this.opponentHand, (index) => this.playerPlay(index));
+    this.callRenderHandsMethod();
+  }
+
+  callRenderHandsMethod(){
+    this.renderService.renderHands(this.playerHand, this.opponentHand, this.playerDeck, this.opponentDeck, (index) => this.playerPlay(index));
   }
 
   checkGameOver(): boolean {
@@ -53,17 +58,7 @@ export class game {
   }
 
   playerPlay(cardIndex: number) {
-    console.log("Hand Before");
-    this.playerHand.forEach((item) => {
-      console.log(item);
-    });
-
     const playerCard = this.playerHand.splice(cardIndex, 1)[0];
-
-    console.log("Hand After");
-    this.playerHand.forEach((item) => {
-      console.log(item);
-    });
 
     this.renderService.updateBoard(playerCard, "Player");
     const opponentCard = this.botPlay();

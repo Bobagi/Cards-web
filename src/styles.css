@@ -11,11 +11,20 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color: burlywood;
 }
 
 #fieldset-game-board{
     min-width: 50vw;
     min-height: 30vh;
+    background-color: brown;
+    border-color: black;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 80vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
 
 #player-hand,
@@ -27,8 +36,8 @@ body {
 }
 
 .card {
-    width: 150px;
-    height: auto;
+    width: 170px;
+    height: 250px;
     margin: 10px;
     background-color: #fff;
     border: 2px solid #000;
@@ -50,11 +59,10 @@ body {
 
 .card-content {
     position: relative;
-    width: 150px;
+    width: 170px;
     height: 250px;
     background-size: cover;
     background-position: center;
-    border: 2px solid #000;
     border-radius: 5px;
     color: white;
     /* Coloque a cor do texto como branca para ser visível sobre a imagem */
@@ -90,4 +98,10 @@ body {
     margin: 2px 0;
     font-size: 12px;
     color: white;
+}
+
+.divider {
+    width: 2px;
+    background-color: burlywood;
+    margin: 0 10px;
 }
