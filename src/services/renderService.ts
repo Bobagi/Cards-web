@@ -67,6 +67,7 @@ animateCard(cardElement: HTMLElement, originContainer: HTMLElement, targetContai
       cardElement.style.top = '';
       cardElement.style.transition = '';
       targetContainer.appendChild(cardElement);
+      this.scrollBoard();
     }, 500);
   }, 10);
 }
@@ -75,6 +76,7 @@ animateCard(cardElement: HTMLElement, originContainer: HTMLElement, targetContai
     const deckContainer = document.getElementById(deckDivName)!;
     deckContainer.innerHTML = "";
 
+    if(deck.length > 0){
     const deckDiv = document.createElement("div");
     deckDiv.className = "card";
     deckDiv.innerHTML = `
@@ -83,6 +85,7 @@ animateCard(cardElement: HTMLElement, originContainer: HTMLElement, targetContai
       </div>`;
 
     deckContainer.appendChild(deckDiv);
+    }
   }
 
   updateBoard(card: card, player: string) {
@@ -108,8 +111,13 @@ animateCard(cardElement: HTMLElement, originContainer: HTMLElement, targetContai
     }else{
       this.animateCard(cardDiv, document.getElementById("player-hand")!, boardContainer);
     }
-  }
 
+    this.scrollBoard();
+  }
+  scrollBoard(){
+    const container = document.getElementById("fieldset-game-board")!;
+    container.scrollLeft = container.scrollWidth;
+  }
   showEndGameScreen(message: String){
     alert(message);
   }

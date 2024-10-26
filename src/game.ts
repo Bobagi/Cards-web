@@ -52,7 +52,7 @@ export class game {
     // Verifica se um dos jogadores ficou sem cartas e exibe a tela de fim de jogo
     const result = rules.checkGameOver(this.playerDeck, this.opponentDeck);
     if (result) {
-      this.renderService.showEndGameScreen(result === 'Player' ? 'Você venceu!' : 'Você perdeu!');
+      this.renderService.showEndGameScreen(result === 'Player' ? 'You won the game!' : 'You lose the game!');
       return true;
     }
     return false;
