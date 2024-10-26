@@ -4,35 +4,36 @@ import { deckManagerService } from './services/deckManagerService';
 
 export class game {
   private playerHand: card[] = [];
-  private botHand: card[] = [];
+  private opponentHand: card[] = [];
   private deckService = new deckManagerService();
   private renderService = new renderService();
 
   constructor() {
-    const deck = this.deckService.createDeck();
-    const shuffledDeck = this.deckService.shuffleDeck(deck);
-    this.dealcards(shuffledDeck);
-    this.renderService.renderHands(this.playerHand, this.botHand, (index) => this.playerPlay(index));
+    let playerDeck: card[] = this.deckService.createDeck();
+    playerDeck = this.deckService.shuffleDeck(playerDeck);
+
+    let opponentDeck: card[] = this.deckService.createDeck();
+    opponentDeck = this.deckService.shuffleDeck(opponentDeck);
+
+    this.dealcards(playerDeck, this.playerHand, 1);
+    this.dealcards(opponentDeck, this.opponentHand, 1);
+
+    this.renderService.renderHands(this.playerHand, this.opponentHand, (index) => this.playerPlay(index));
   }
 
-  dealcards(deck: card[]) {
-    const half = deck.length / 2;
-    this.playerHand = deck.slice(0, half);
-    this.botHand = deck.slice(half, deck.length);
-
-    console.log(this.playerHand);
-    console.log(this.botHand);
+  dealcards(deck: card[], hand: card[], numberOfCardsToDraw: number) {
+    hand.splice(0, hand.length, ...deck.slice(0, numberOfCardsToDraw));
   }
 
   playerPlay(cardIndex: number) {
     const card = this.playerHand.splice(cardIndex, 1)[0];
     this.renderService.updateBoard(card, "Player");
     this.botPlay();
-    this.renderService.renderHands(this.playerHand, this.botHand, (index) => this.playerPlay(index));
+    this.renderService.renderHands(this.playerHand, this.opponentHand, (index) => this.playerPlay(index));
   }
 
   botPlay() {
-    const card = this.botHand.pop();
+    const card = this.opponentHand.pop();
     if (card) {
       this.renderService.updateBoard(card, "Bot");
     }
