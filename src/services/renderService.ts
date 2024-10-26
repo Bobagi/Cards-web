@@ -48,4 +48,8 @@ export class renderService {
       </div>`;
     boardContainer.appendChild(cardDiv);
   }
+
+  showEndGameScreen(message: String){
+    alert(message);
+  }
 }

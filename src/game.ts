@@ -1,41 +1,91 @@
 import { card } from './models/card';
 import { renderService } from './services/renderService';
 import { deckManagerService } from './services/deckManagerService';
+import { rules } from './rules';
 
 export class game {
+  private playerDeck: card[] = [];
+  private opponentDeck: card[] = [];
   private playerHand: card[] = [];
   private opponentHand: card[] = [];
   private deckService = new deckManagerService();
   private renderService = new renderService();
 
   constructor() {
-    let playerDeck: card[] = this.deckService.createDeck();
-    playerDeck = this.deckService.shuffleDeck(playerDeck);
+    this.playerDeck = this.deckService.createDeck();
+    this.playerDeck = this.deckService.shuffleDeck(this.playerDeck);
 
-    let opponentDeck: card[] = this.deckService.createDeck();
-    opponentDeck = this.deckService.shuffleDeck(opponentDeck);
+    this.opponentDeck = this.deckService.createDeck();
+    this.opponentDeck = this.deckService.shuffleDeck(this.opponentDeck);
 
-    this.dealcards(playerDeck, this.playerHand, 1);
-    this.dealcards(opponentDeck, this.opponentHand, 1);
+    this.startTurn();
+  }
+
+  startTurn() {
+    // Pega a primeira carta de cada baralho como a "mão" do jogador e oponente
+    if(this.playerDeck.length > 0){
+      this.dealcards(this.playerDeck, this.playerHand, 1);
+    }else{
+      this.checkGameOver();
+    }
+
+    if(this.opponentDeck.length > 0){
+      this.dealcards(this.opponentDeck, this.opponentHand, 1);
+    }else{
+      this.checkGameOver();
+    }
 
     this.renderService.renderHands(this.playerHand, this.opponentHand, (index) => this.playerPlay(index));
+  }
+
+  checkGameOver(): boolean {
+    // Verifica se um dos jogadores ficou sem cartas e exibe a tela de fim de jogo
+    const result = rules.checkGameOver(this.playerDeck, this.opponentDeck);
+    if (result) {
+      this.renderService.showEndGameScreen(result === 'Player' ? 'Você venceu!' : 'Você perdeu!');
+      return true;
+    }
+    return false;
   }
 
   dealcards(deck: card[], hand: card[], numberOfCardsToDraw: number) {
-    hand.splice(0, hand.length, ...deck.slice(0, numberOfCardsToDraw));
+    hand.splice(0, hand.length, ...deck.splice(0, numberOfCardsToDraw));
   }
 
   playerPlay(cardIndex: number) {
-    const card = this.playerHand.splice(cardIndex, 1)[0];
-    this.renderService.updateBoard(card, "Player");
-    this.botPlay();
-    this.renderService.renderHands(this.playerHand, this.opponentHand, (index) => this.playerPlay(index));
+    console.log("Hand Before");
+    this.playerHand.forEach((item) => {
+      console.log(item);
+    });
+
+    const playerCard = this.playerHand.splice(cardIndex, 1)[0];
+
+    console.log("Hand After");
+    this.playerHand.forEach((item) => {
+      console.log(item);
+    });
+
+    this.renderService.updateBoard(playerCard, "Player");
+    const opponentCard = this.botPlay();
+
+    if(!playerCard || !opponentCard){
+      alert("FATAL ERROR!");
+      return;
+    }else{
+      const result = rules.compareCards(playerCard, opponentCard, 'strength');
+      rules.handleRoundOutcome(result, playerCard, opponentCard, this.playerDeck, this.opponentDeck);
+      this.checkGameOver();
+      this.startTurn();
+    }
   }
 
-  botPlay() {
+  botPlay(): card | null {
     const card = this.opponentHand.pop();
     if (card) {
       this.renderService.updateBoard(card, "Bot");
+      return card;
     }
+    this.checkGameOver();
+    return null;
   }
 }
