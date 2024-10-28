@@ -15,31 +15,30 @@ export class renderService {
     playerHand.forEach((card, index) => {
       const cardDiv = document.createElement('div')
       cardDiv.className = 'card js-tilt'
-      // <div class="card-content" style="background-image: url('${card.art}')">
+
       cardDiv.innerHTML = `
         <div class="card-content" style="background-image: url('${card.art}'); position: relative;">
           <div class="card-overlay" style="background-image: url('images/card_template.png');"></div>
-          <div class="card-header"><span class="card-number">${card.name} #${card.number}</span></div>
+          <div class="card-header" style="background: none !important"><span class="card-number" style="display: none !important">${card.name} #${card.number}</span></div>
           <div class="card-stats">
-            <div class="stat-icon" data-stat="strength" data-stat-value="${card.magic}"></div>
-            <div class="stat-icon" data-stat="magic" data-stat-value="${card.strength}"></div>
+            <div class="stat-icon" data-stat="magic" data-stat-value="${card.magic}"></div>
+            <div class="stat-icon" data-stat="strength" data-stat-value="${card.strength}"></div>
             <div class="stat-icon" data-stat="fire" data-stat-value="${card.fire}"></div>
           </div>
         </div>`
 
-      // Add click events to each button inside the card
-      const buttons = cardDiv.querySelectorAll('button')
-      buttons.forEach((button) => {
-        button.addEventListener('click', (event) => {
+      const icons = cardDiv.querySelectorAll('.stat-icon')
+      icons.forEach((icon) => {
+        icon.addEventListener('click', (event) => {
           event.stopPropagation()
 
-          const statType: attributeType = (
-            button as HTMLButtonElement
-          ).getAttribute('data-stat') as attributeType
+          const statType: attributeType = (icon as HTMLDivElement).getAttribute(
+            'data-stat'
+          ) as attributeType
 
           if (statType) {
-            let buttonAttribute: attributes = new attributes(statType)
-            playerPlayCallback(index, buttonAttribute)
+            let iconAttribute: attributes = new attributes(statType)
+            playerPlayCallback(index, iconAttribute)
           }
         })
       })
@@ -128,12 +127,13 @@ export class renderService {
     const cardDiv = document.createElement('div')
     cardDiv.className = 'card js-tilt'
     cardDiv.innerHTML = `
-      <div class="card-content" style="background-image: url('${card.art}')">
-        <div class="card-header"><span class="card-number">(${player}) #${card.number}</span></div>
+      <div class="card-content" style="background-image: url('${card.art}'); position: relative;">
+        <div class="card-overlay" style="background-image: url('images/card_template.png');"></div>
+        <div class="card-header"><span class="card-number">${card.name} #${card.number}</span></div>
         <div class="card-stats">
-          <p>Força: ${card.strength}</p>
-          <p>Magia: ${card.magic}</p>
-          <p>Fogo: ${card.fire}</p>
+          <div class="stat-icon" data-stat="magic" data-stat-value="${card.magic}"></div>
+          <div class="stat-icon" data-stat="strength" data-stat-value="${card.strength}"></div>
+          <div class="stat-icon" data-stat="fire" data-stat-value="${card.fire}"></div>
         </div>
       </div>`
 
