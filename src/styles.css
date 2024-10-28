@@ -49,7 +49,6 @@ body {
   font-size: 14px;
   padding: 0;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  /* transition: transform 0.3s; */
 }
 
 .card:hover {
@@ -64,23 +63,33 @@ body {
   background-size: cover;
   background-position: center;
   border-radius: 5px;
-  color: white;
-  /* Coloque a cor do texto como branca para ser visível sobre a imagem */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
+  z-index: 2; /* Overlay fica à frente da arte */
+}
+
 .card-header,
 .card-stats {
-  display: flex;
   position: relative;
-  text-align-last: end;
-  z-index: 1;
+  z-index: 3; /* Conteúdo do texto fica acima de ambas as imagens */
   padding: 10px;
-  background: rgba(0, 0, 0, 1);
-  /* Fundo escuro semi-transparente para melhorar a legibilidade */
+  background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente para melhorar a legibilidade */
   border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+  color: white;
 }
 
 .card-number {

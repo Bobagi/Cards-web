@@ -15,22 +15,24 @@ export class renderService {
     playerHand.forEach((card, index) => {
       const cardDiv = document.createElement('div')
       cardDiv.className = 'card js-tilt'
+      // <div class="card-content" style="background-image: url('${card.art}')">
       cardDiv.innerHTML = `
-      <div class="card-content" style="background-image: url('${card.art}')">
-        <div class="card-header"><span class="card-number">${card.name} #${card.number}</span></div>
-        <div class="card-stats">
-          <button data-stat="strength">${card.strength}</button>
-          <button data-stat="magic">${card.magic}</button>
-          <button data-stat="fire">${card.fire}</button>
-        </div>
-      </div>`
+        <div class="card-content" style="background-image: url('${card.art}'); position: relative;">
+          <div class="card-overlay" style="background-image: url('images/card_template.png');"></div>
+          <div class="card-header"><span class="card-number">${card.name} #${card.number}</span></div>
+          <div class="card-stats">
+            <button data-stat="strength">${card.strength}</button>
+            <button data-stat="magic">${card.magic}</button>
+            <button data-stat="fire">${card.fire}</button>
+          </div>
+        </div>`
 
       // Add click events to each button inside the card
       const buttons = cardDiv.querySelectorAll('button')
       buttons.forEach((button) => {
         button.addEventListener('click', (event) => {
           event.stopPropagation()
-          
+
           const statType: attributeType = (
             button as HTMLButtonElement
           ).getAttribute('data-stat') as attributeType
@@ -64,7 +66,7 @@ export class renderService {
     opponentHand.forEach(() => {
       const cardDiv = document.createElement('div')
       cardDiv.className = 'card'
-      cardDiv.innerHTML = `<img src="images/card-back.png" alt="Card Back" class="card-art">`
+      cardDiv.innerHTML = `<img src="images/card_back.png" alt="Card Back" class="card-art">`
 
       this.animateCard(cardDiv, opponentDeckContainer, opponentHandContainer)
     })
@@ -113,7 +115,7 @@ export class renderService {
       const deckDiv = document.createElement('div')
       deckDiv.className = 'card'
       deckDiv.innerHTML = `
-      <div class="card-content" style="background-image: url('images/card-back.png')">
+      <div class="card-content" style="background-image: url('images/card_back.png')">
         <div class="card-header"><span class="card-number">${deck.length}</span></div>
       </div>`
 
