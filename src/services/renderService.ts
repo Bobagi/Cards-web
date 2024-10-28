@@ -21,9 +21,9 @@ export class renderService {
           <div class="card-overlay" style="background-image: url('images/card_template.png');"></div>
           <div class="card-header"><span class="card-number">${card.name} #${card.number}</span></div>
           <div class="card-stats">
-            <button data-stat="strength">${card.strength}</button>
-            <button data-stat="magic">${card.magic}</button>
-            <button data-stat="fire">${card.fire}</button>
+            <div class="stat-icon" data-stat="strength" data-stat-value="${card.magic}"></div>
+            <div class="stat-icon" data-stat="magic" data-stat-value="${card.strength}"></div>
+            <div class="stat-icon" data-stat="fire" data-stat-value="${card.fire}"></div>
           </div>
         </div>`
 

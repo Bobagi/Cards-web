@@ -77,15 +77,15 @@ body {
   background-size: cover;
   background-position: center;
   border-radius: 5px;
-  z-index: 2; /* Overlay fica à frente da arte */
+  z-index: 2;
 }
 
 .card-header,
 .card-stats {
   position: relative;
-  z-index: 3; /* Conteúdo do texto fica acima de ambas as imagens */
+  z-index: 3;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente para melhorar a legibilidade */
+  background: rgba(0, 0, 0, 0.7);
   border-radius: 5px;
   display: flex;
   justify-content: space-around;
@@ -114,4 +114,49 @@ body {
   min-width: 2px;
   background-color: burlywood;
   margin: 0 10px;
+}
+
+/* Ícones clicáveis usando divs para cada tipo de botão */
+.card-stats .stat-icon {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Ícone de fundo para cada tipo de stat */
+.stat-icon[data-stat='strength'] {
+  background-image: url('images/icons/strength_icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.stat-icon[data-stat='magic'] {
+  background-image: url('images/icons/magic_icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.stat-icon[data-stat='fire'] {
+  background-image: url('images/icons/fire_icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Número sobreposto no centro do ícone */
+.stat-icon::after {
+  content: attr(data-stat-value);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Efeito de brilho azul ao passar o mouse */
+.stat-icon:hover {
+  box-shadow: 0 0 10px 5px rgba(0, 150, 255, 0.7);
 }
