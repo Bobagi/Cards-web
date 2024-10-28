@@ -1,4 +1,5 @@
 import { card } from './models/card'
+import { attributes } from './models/attributes'
 import { renderService } from './services/renderService'
 import { deckManagerService } from './services/deckManagerService'
 import { rules } from './rules'
@@ -22,7 +23,6 @@ export class game {
   }
 
   startTurn() {
-    // Pega a primeira carta de cada baralho como a "mão" do jogador e oponente
     if (this.playerDeck.length > 0) {
       this.dealcards(this.playerDeck, this.playerHand, 1)
       console.log(this.playerDeck)
@@ -44,7 +44,7 @@ export class game {
       this.renderService.renderPlayerHand(
         this.playerHand,
         this.playerDeck,
-        (index) => this.playerPlay(index)
+        (index, statType) => this.playerPlay(index, statType)
       )
     }
     if (whoDrawCards !== 'Player') {
@@ -56,7 +56,6 @@ export class game {
   }
 
   checkGameOver(): boolean {
-    // Verifica se um dos jogadores ficou sem cartas e exibe a tela de fim de jogo
     const result = rules.checkGameOver(this.playerDeck, this.opponentDeck)
     if (result) {
       this.renderService.showEndGameScreen(
@@ -71,7 +70,7 @@ export class game {
     hand.splice(0, hand.length, ...deck.splice(0, numberOfCardsToDraw))
   }
 
-  playerPlay(cardIndex: number) {
+  playerPlay(cardIndex: number, statType: attributes) {
     const playerCard = this.playerHand.splice(cardIndex, 1)[0]
 
     this.renderService.updateBoard(playerCard, 'Player')
@@ -81,7 +80,7 @@ export class game {
       alert('FATAL ERROR!')
       return
     } else {
-      const result = rules.compareCards(playerCard, opponentCard, 'strength')
+      const result = rules.compareCards(playerCard, opponentCard, statType)
       rules.handleRoundOutcome(
         result,
         playerCard,

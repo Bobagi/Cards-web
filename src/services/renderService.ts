@@ -1,16 +1,17 @@
 import { card } from '../models/card'
-
+import { attributes, attributeType } from '../models/attributes'
 export class renderService {
   renderPlayerHand(
     playerHand: card[],
     playerDeck: card[],
-    playerPlayCallback: (index: number) => void
+    playerPlayCallback: (index: number, statType: attributes) => void
   ) {
     const playerHandContainer = document.getElementById('player-hand')!
     const playerDeckContainer = document.getElementById('playerDeckDiv')!
 
     playerHandContainer.innerHTML = ''
 
+    // create cards
     playerHand.forEach((card, index) => {
       const cardDiv = document.createElement('div')
       cardDiv.className = 'card js-tilt'
@@ -18,12 +19,28 @@ export class renderService {
       <div class="card-content" style="background-image: url('${card.art}')">
         <div class="card-header"><span class="card-number">${card.name} #${card.number}</span></div>
         <div class="card-stats">
-          <p>Força: ${card.strength}</p>
-          <p>Magia: ${card.magic}</p>
-          <p>Fogo: ${card.fire}</p>
+          <button data-stat="strength">${card.strength}</button>
+          <button data-stat="magic">${card.magic}</button>
+          <button data-stat="fire">${card.fire}</button>
         </div>
       </div>`
-      cardDiv.onclick = () => playerPlayCallback(index)
+
+      // Add click events to each button inside the card
+      const buttons = cardDiv.querySelectorAll('button')
+      buttons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.stopPropagation()
+          
+          const statType: attributeType = (
+            button as HTMLButtonElement
+          ).getAttribute('data-stat') as attributeType
+
+          if (statType) {
+            let buttonAttribute: attributes = new attributes(statType)
+            playerPlayCallback(index, buttonAttribute)
+          }
+        })
+      })
 
       this.animateCard(cardDiv, playerDeckContainer, playerHandContainer)
     })
@@ -138,6 +155,7 @@ export class renderService {
 
     this.scrollBoard()
   }
+
   scrollBoard() {
     const container = document.getElementById('fieldset-game-board')!
     container.scrollLeft = container.scrollWidth

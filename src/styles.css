@@ -73,6 +73,7 @@ body {
 
 .card-header,
 .card-stats {
+  display: flex;
   position: relative;
   text-align-last: end;
   z-index: 1;

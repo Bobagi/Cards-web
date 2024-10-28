@@ -1,20 +1,21 @@
+import { attributes } from './models/attributes'
 import { card } from './models/card'
 
 export class rules {
   static compareCards(
     playerCard: card,
     opponentCard: card,
-    attribute: 'strength' | 'magic' | 'fire'
+    attribute: attributes
   ): string {
-    const playerValue = playerCard[attribute]
-    const opponentValue = opponentCard[attribute]
+    const playerValue = playerCard[attribute.type]
+    const opponentValue = opponentCard[attribute.type]
 
     if (playerValue > opponentValue) {
-      alert('Player wins')
+      console.log('Player wins')
       return 'Player'
     }
     if (opponentValue > playerValue) {
-      alert('Opponent wins')
+      console.log('Opponent wins')
       return 'Opponent'
     }
     return 'Draw'
