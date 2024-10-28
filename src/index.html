@@ -1,44 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Card Game</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body style="overflow: hidden;">
+  <body style="overflow: hidden">
     <div id="game-container">
-
-        <div style="width: 100%;display: flex;justify-content: space-around;height: 330px;">
-            <div>
-                <p>Opponent's hand</p>
-            </div>
-            <div id="opponent-hand"></div>
-            <div id="opponentDeckDiv">
-                <p>Deck</p>
-            </div>
+      <div
+        style="
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+          height: 330px;
+        "
+      >
+        <div>
+          <p>Opponent's hand</p>
         </div>
-
-        <fieldset id="fieldset-game-board">
-            <div id="game-board"></div>
-        </fieldset>
-
-        <div style="width: 100%;display: flex;justify-content: space-around;height: 330px;">
-            <div>
-                <p>Player's hand</p>
-            </div>
-            <div id="player-hand"></div>
-            <div id="playerDeckDiv">
-                <p>Deck</p>
-            </div>
+        <div id="opponent-hand"></div>
+        <div id="opponentDeckDiv">
+          <p>Deck</p>
         </div>
+      </div>
 
+      <fieldset id="fieldset-game-board">
+        <div id="game-board"></div>
+      </fieldset>
+
+      <div
+        style="
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+          height: 330px;
+        "
+      >
+        <div>
+          <p>Player's hand</p>
+        </div>
+        <div id="player-hand"></div>
+        <div id="playerDeckDiv">
+          <p>Deck</p>
+        </div>
+      </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="dist/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
-</body>
-
+  </body>
 </html>

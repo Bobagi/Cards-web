@@ -61,14 +61,13 @@
 //         });
 
 //         $('.js-tilt').tilt({
-//             scale: 1.2,     
-//             maxTilt: 15,      
-//             speed: 400,       
-//             glare: false,    
+//             scale: 1.2,
+//             maxTilt: 15,
+//             speed: 400,
+//             glare: false,
 //             "max-glare": 0.5
 //         });
 //     }
-
 
 //   playerPlay(cardIndex: number) {
 //     const card = this.playerHand.splice(cardIndex, 1)[0];

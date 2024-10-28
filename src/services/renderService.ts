@@ -1,16 +1,20 @@
-import { card } from '../models/card';
+import { card } from '../models/card'
 
 export class renderService {
-renderPlayerHand(playerHand: card[], playerDeck: card[], playerPlayCallback: (index: number) => void) {
-  const playerHandContainer = document.getElementById("player-hand")!;
-  const playerDeckContainer = document.getElementById("playerDeckDiv")!;
-  
-  playerHandContainer.innerHTML = "";
+  renderPlayerHand(
+    playerHand: card[],
+    playerDeck: card[],
+    playerPlayCallback: (index: number) => void
+  ) {
+    const playerHandContainer = document.getElementById('player-hand')!
+    const playerDeckContainer = document.getElementById('playerDeckDiv')!
 
-  playerHand.forEach((card, index) => {
-    const cardDiv = document.createElement("div");
-    cardDiv.className = "card js-tilt";
-    cardDiv.innerHTML = `
+    playerHandContainer.innerHTML = ''
+
+    playerHand.forEach((card, index) => {
+      const cardDiv = document.createElement('div')
+      cardDiv.className = 'card js-tilt'
+      cardDiv.innerHTML = `
       <div class="card-content" style="background-image: url('${card.art}')">
         <div class="card-header"><span class="card-number">${card.name} #${card.number}</span></div>
         <div class="card-stats">
@@ -18,80 +22,92 @@ renderPlayerHand(playerHand: card[], playerDeck: card[], playerPlayCallback: (in
           <p>Magia: ${card.magic}</p>
           <p>Fogo: ${card.fire}</p>
         </div>
-      </div>`;
-    cardDiv.onclick = () => playerPlayCallback(index);
+      </div>`
+      cardDiv.onclick = () => playerPlayCallback(index)
 
-    this.animateCard(cardDiv, playerDeckContainer, playerHandContainer);
-  });
+      this.animateCard(cardDiv, playerDeckContainer, playerHandContainer)
+    })
 
-  $('.js-tilt').tilt({ scale: 1.2, maxTilt: 15, speed: 800, glare: true, maxGlare: 0.3 });
-  this.renderDeck(playerDeck, "playerDeckDiv");
-}
+    $('.js-tilt').tilt({
+      scale: 1.2,
+      maxTilt: 15,
+      speed: 800,
+      glare: true,
+      maxGlare: 0.3,
+    })
+    this.renderDeck(playerDeck, 'playerDeckDiv')
+  }
 
-renderOpponentHand(opponentHand: card[], opponentDeck: card[]) {
-  const opponentHandContainer = document.getElementById("opponent-hand")!;
-  const opponentDeckContainer = document.getElementById("opponentDeckDiv")!;
+  renderOpponentHand(opponentHand: card[], opponentDeck: card[]) {
+    const opponentHandContainer = document.getElementById('opponent-hand')!
+    const opponentDeckContainer = document.getElementById('opponentDeckDiv')!
 
-  opponentHandContainer.innerHTML = "";
+    opponentHandContainer.innerHTML = ''
 
-  opponentHand.forEach(() => {
-    const cardDiv = document.createElement("div");
-    cardDiv.className = "card";
-    cardDiv.innerHTML = `<img src="images/card-back.png" alt="Card Back" class="card-art">`;
+    opponentHand.forEach(() => {
+      const cardDiv = document.createElement('div')
+      cardDiv.className = 'card'
+      cardDiv.innerHTML = `<img src="images/card-back.png" alt="Card Back" class="card-art">`
 
-    this.animateCard(cardDiv, opponentDeckContainer, opponentHandContainer);
-  });
+      this.animateCard(cardDiv, opponentDeckContainer, opponentHandContainer)
+    })
 
-  this.renderDeck(opponentDeck, "opponentDeckDiv");
-}
+    this.renderDeck(opponentDeck, 'opponentDeckDiv')
+  }
 
-animateCard(cardElement: HTMLElement, originContainer: HTMLElement, targetContainer: HTMLElement) {
-  const originRect = originContainer.getBoundingClientRect();
-  cardElement.style.position = 'absolute';
-  cardElement.style.left = `${originRect.left}px`;
-  cardElement.style.top = `${originRect.top}px`;
-  cardElement.style.opacity = '0';
+  animateCard(
+    cardElement: HTMLElement,
+    originContainer: HTMLElement,
+    targetContainer: HTMLElement
+  ) {
+    const originRect = originContainer.getBoundingClientRect()
+    cardElement.style.position = 'absolute'
+    cardElement.style.left = `${originRect.left}px`
+    cardElement.style.top = `${originRect.top}px`
+    cardElement.style.opacity = '0'
 
-  document.body.appendChild(cardElement);
+    document.body.appendChild(cardElement)
 
-  const handRect = targetContainer.getBoundingClientRect();
-  setTimeout(() => {
-    cardElement.style.transition = 'all 0.5s ease'; 
-    cardElement.style.left = `${handRect.left + targetContainer.childElementCount * 120}px`;
-    cardElement.style.top = `${handRect.top}px`;
-    cardElement.style.opacity = '1';
-
+    const handRect = targetContainer.getBoundingClientRect()
     setTimeout(() => {
-      cardElement.style.position = '';
-      cardElement.style.left = '';
-      cardElement.style.top = '';
-      cardElement.style.transition = '';
-      targetContainer.appendChild(cardElement);
-      this.scrollBoard();
-    }, 500);
-  }, 10);
-}
+      cardElement.style.transition = 'all 0.5s ease'
+      cardElement.style.left = `${
+        handRect.left + targetContainer.childElementCount * 120
+      }px`
+      cardElement.style.top = `${handRect.top}px`
+      cardElement.style.opacity = '1'
 
-  renderDeck(deck: card[], deckDivName: string) { 
-    const deckContainer = document.getElementById(deckDivName)!;
-    deckContainer.innerHTML = "";
+      setTimeout(() => {
+        cardElement.style.position = ''
+        cardElement.style.left = ''
+        cardElement.style.top = ''
+        cardElement.style.transition = ''
+        targetContainer.appendChild(cardElement)
+        this.scrollBoard()
+      }, 500)
+    }, 10)
+  }
 
-    if(deck.length > 0){
-    const deckDiv = document.createElement("div");
-    deckDiv.className = "card";
-    deckDiv.innerHTML = `
+  renderDeck(deck: card[], deckDivName: string) {
+    const deckContainer = document.getElementById(deckDivName)!
+    deckContainer.innerHTML = ''
+
+    if (deck.length > 0) {
+      const deckDiv = document.createElement('div')
+      deckDiv.className = 'card'
+      deckDiv.innerHTML = `
       <div class="card-content" style="background-image: url('images/card-back.png')">
         <div class="card-header"><span class="card-number">${deck.length}</span></div>
-      </div>`;
+      </div>`
 
-    deckContainer.appendChild(deckDiv);
+      deckContainer.appendChild(deckDiv)
     }
   }
 
   updateBoard(card: card, player: string) {
-    const boardContainer = document.getElementById("game-board")!;
-    const cardDiv = document.createElement("div");
-    cardDiv.className = "card js-tilt";
+    const boardContainer = document.getElementById('game-board')!
+    const cardDiv = document.createElement('div')
+    cardDiv.className = 'card js-tilt'
     cardDiv.innerHTML = `
       <div class="card-content" style="background-image: url('${card.art}')">
         <div class="card-header"><span class="card-number">(${player}) #${card.number}</span></div>
@@ -100,25 +116,33 @@ animateCard(cardElement: HTMLElement, originContainer: HTMLElement, targetContai
           <p>Magia: ${card.magic}</p>
           <p>Fogo: ${card.fire}</p>
         </div>
-      </div>`;
+      </div>`
 
-    if(player != "Player"){
-      this.animateCard(cardDiv, document.getElementById("opponent-hand")!, boardContainer);
-      const boardDivisor = document.createElement("div");
-      boardDivisor.className = "divider";
-      boardDivisor.innerHTML = "";
-      boardContainer.appendChild(boardDivisor);
-    }else{
-      this.animateCard(cardDiv, document.getElementById("player-hand")!, boardContainer);
+    if (player != 'Player') {
+      this.animateCard(
+        cardDiv,
+        document.getElementById('opponent-hand')!,
+        boardContainer
+      )
+      const boardDivisor = document.createElement('div')
+      boardDivisor.className = 'divider'
+      boardDivisor.innerHTML = ''
+      boardContainer.appendChild(boardDivisor)
+    } else {
+      this.animateCard(
+        cardDiv,
+        document.getElementById('player-hand')!,
+        boardContainer
+      )
     }
 
-    this.scrollBoard();
+    this.scrollBoard()
   }
-  scrollBoard(){
-    const container = document.getElementById("fieldset-game-board")!;
-    container.scrollLeft = container.scrollWidth;
+  scrollBoard() {
+    const container = document.getElementById('fieldset-game-board')!
+    container.scrollLeft = container.scrollWidth
   }
-  showEndGameScreen(message: String){
-    alert(message);
+  showEndGameScreen(message: String) {
+    alert(message)
   }
 }

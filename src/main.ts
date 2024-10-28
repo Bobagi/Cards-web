@@ -1,5 +1,5 @@
-import { game } from './game';
-	
-console.log('Starting game');
+import { game } from './game'
 
-const gameInstance = new game();
+console.log('Starting game')
+
+const gameInstance = new game()
