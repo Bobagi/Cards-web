@@ -4,7 +4,7 @@ export class renderService {
   renderPlayerHand(
     playerHand: card[],
     playerDeck: card[],
-    playerPlayCallback: (index: number, statType: attributes) => void
+    selectCardCallback: (index: number) => void
   ) {
     const playerHandContainer = document.getElementById('player-hand')!
     const playerDeckContainer = document.getElementById('playerDeckDiv')!
@@ -27,20 +27,12 @@ export class renderService {
           </div>
         </div>`
 
-      const icons = cardDiv.querySelectorAll('.stat-icon')
-      icons.forEach((icon) => {
-        icon.addEventListener('click', (event) => {
-          event.stopPropagation()
+      const newCard = cardDiv.querySelector('.card-content')!
 
-          const statType: attributeType = (icon as HTMLDivElement).getAttribute(
-            'data-stat'
-          ) as attributeType
-
-          if (statType) {
-            let iconAttribute: attributes = new attributes(statType)
-            playerPlayCallback(index, iconAttribute)
-          }
-        })
+      newCard.addEventListener('click', (event) => {
+        event.stopPropagation()
+        selectCardCallback(index)
+        cardDiv.remove()
       })
 
       this.animateCard(cardDiv, playerDeckContainer, playerHandContainer)
@@ -49,7 +41,7 @@ export class renderService {
     $('.js-tilt').tilt({
       scale: 1.2,
       maxTilt: 15,
-      speed: 800,
+      speed: 500,
       glare: true,
       maxGlare: 0.3,
     })
@@ -122,10 +114,33 @@ export class renderService {
     }
   }
 
-  updateBoard(card: card, player: string) {
-    const boardContainer = document.getElementById('game-board')!
+  clearBoard() {
+    let boardContainer = document.getElementById('Player-card-board')!
+    while (boardContainer.firstChild) {
+      boardContainer.removeChild(boardContainer.firstChild)
+    }
+
+    boardContainer = document.getElementById('Opponent-card-board')!
+    while (boardContainer.firstChild) {
+      boardContainer.removeChild(boardContainer.firstChild)
+    }
+  }
+
+  updateBoard(
+    card: card,
+    player: string,
+    selectAbilityCallback: (statType: attributes) => void
+  ) {
+    const boardContainer = document.getElementById(player + '-card-board')!
+
+    const existingCards = boardContainer.getElementsByClassName('card')
+    if (existingCards.length >= 2) {
+      this.clearBoard()
+    }
+
     const cardDiv = document.createElement('div')
-    cardDiv.className = 'card js-tilt'
+    cardDiv.className = 'card'
+
     cardDiv.innerHTML = `
       <div class="card-content" style="background-image: url('${card.art}'); position: relative;">
         <div class="card-overlay" style="background-image: url('images/card_template.png');"></div>
@@ -143,23 +158,37 @@ export class renderService {
         document.getElementById('opponent-hand')!,
         boardContainer
       )
-      const boardDivisor = document.createElement('div')
-      boardDivisor.className = 'divider'
-      boardDivisor.innerHTML = ''
-      boardContainer.appendChild(boardDivisor)
+
+      document.getElementById('opponent-hand')!.querySelector('.card')!.remove()
     } else {
       this.animateCard(
         cardDiv,
         document.getElementById('player-hand')!,
         boardContainer
       )
+
+      const icons = cardDiv.querySelectorAll('.stat-icon')
+      icons.forEach((icon) => {
+        icon.addEventListener('click', (event) => {
+          event.stopPropagation()
+
+          const statType: attributeType = (icon as HTMLDivElement).getAttribute(
+            'data-stat'
+          ) as attributeType
+
+          if (statType) {
+            let iconAttribute: attributes = new attributes(statType)
+            selectAbilityCallback(iconAttribute)
+          }
+        })
+      })
     }
 
     this.scrollBoard()
   }
 
   scrollBoard() {
-    const container = document.getElementById('fieldset-game-board')!
+    const container = document.getElementById('history-fieldset')!
     container.scrollLeft = container.scrollWidth
   }
   showEndGameScreen(message: String) {

@@ -7,6 +7,8 @@ import { rules } from './rules'
 export class game {
   private playerDeck: card[] = []
   private opponentDeck: card[] = []
+  private playerSelectedCard: card | null = null
+  private opponentSelectedCard: card | null = null
   private playerHand: card[] = []
   private opponentHand: card[] = []
   private deckService = new deckManagerService()
@@ -36,6 +38,7 @@ export class game {
       this.checkGameOver()
     }
 
+    this.renderService.clearBoard()
     this.callRenderHandsMethod()
   }
 
@@ -44,7 +47,7 @@ export class game {
       this.renderService.renderPlayerHand(
         this.playerHand,
         this.playerDeck,
-        (index, statType) => this.playerPlay(index, statType)
+        (index) => this.selectCard(index)
       )
     }
     if (whoDrawCards !== 'Player') {
@@ -70,21 +73,32 @@ export class game {
     hand.splice(0, hand.length, ...deck.splice(0, numberOfCardsToDraw))
   }
 
-  playerPlay(cardIndex: number, statType: attributes) {
-    const playerCard = this.playerHand.splice(cardIndex, 1)[0]
+  selectCard(cardIndex: number) {
+    this.playerSelectedCard = this.playerHand.splice(cardIndex, 1)[0]
 
-    this.renderService.updateBoard(playerCard, 'Player')
-    const opponentCard = this.opponentPlay()
+    this.renderService.updateBoard(
+      this.playerSelectedCard,
+      'Player',
+      (statType) => this.selectAbility(statType)
+    )
 
-    if (!playerCard || !opponentCard) {
+    this.opponentSelectedCard = this.opponentPlay()
+  }
+
+  selectAbility(statType: attributes) {
+    if (!this.playerSelectedCard || !this.opponentSelectedCard) {
       alert('FATAL ERROR!')
       return
     } else {
-      const result = rules.compareCards(playerCard, opponentCard, statType)
+      const result = rules.compareCards(
+        this.playerSelectedCard,
+        this.opponentSelectedCard,
+        statType
+      )
       rules.handleRoundOutcome(
         result,
-        playerCard,
-        opponentCard,
+        this.playerSelectedCard,
+        this.opponentSelectedCard,
         this.playerDeck,
         this.opponentDeck
       )
@@ -96,7 +110,7 @@ export class game {
   opponentPlay(): card | null {
     const card = this.opponentHand.pop()
     if (card) {
-      this.renderService.updateBoard(card, 'Opponent')
+      this.renderService.updateBoard(card, 'Opponent', () => null)
       return card
     }
     this.checkGameOver()
