@@ -32,6 +32,14 @@
 .hand {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 330px;
+}
+
+#playerDeckDiv {
+  align-content: end;
+}
+
+#opponentDeckDiv {
+  align-content: start;
 }
