@@ -1,4 +1,4 @@
-import { card } from '../models/card'
+import { card } from '../card'
 
 export class deckManagerService {
   private deck: card[] = []

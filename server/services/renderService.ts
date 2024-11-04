@@ -1,5 +1,5 @@
-import { card } from '../models/card'
-import { attributes, attributeType } from '../models/attributes'
+import { card } from '../card'
+import { attributes, attributeType } from '../attributes'
 export class renderService {
   renderPlayerHand(
     playerHand: card[],

@@ -14,12 +14,10 @@
         <div style="align-content: center">
           <button id="buttonHistory">Fechar</button>
         </div>
-
         <fieldset id="history-fieldset" class="fieldset-game-board">
           <div id="history-board" class="game-board"></div>
         </fieldset>
       </div>
-
       <div class="rightTableSide">
         <div class="hand">
           <div>
@@ -28,7 +26,6 @@
           <div id="opponent-hand"></div>
           <div id="opponentDeckDiv"></div>
         </div>
-
         <div id="middle-section" style="display: flex">
           <div>
             <fieldset class="fieldset-game-board">
@@ -39,7 +36,6 @@
             </fieldset>
           </div>
         </div>
-
         <div class="hand">
           <div>
             <p>Player's hand</p>
@@ -49,19 +45,72 @@
         </div>
       </div>
     </div>
+
+    <div id="modalMessage" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h2>Dracomania</h2>
+        <p>Iniciar jogo</p>
+        <button id="btnStart">Jogar</button>
+        <!-- <button id="action2">Action 2</button> -->
+      </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="dist/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $('#buttonHistory').click(function () {
+          $('#history-fieldset').toggle('slow')
+          $(this).text(function (i, text) {
+            return text === 'Fechar' ? 'Histórico' : 'Fechar'
+          })
+        })
+
+        $('#modalMessage').show()
+
+        // $('#buttonHistory').click(function () {
+        //   $('#modalMessage').show()
+        // })
+
+        $('#btnStart').click(function () {
+          $('#modalMessage').hide()
+        })
+      })
+    </script>
+
+    <style>
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        position: relative;
+        margin: auto;
+        padding: 20px;
+        background-color: white;
+        width: 300px;
+        top: 50%;
+        transform: translateY(-50%);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    </style>
   </body>
 </html>
-
-<script>
-  $(document).ready(function () {
-    $('button').click(function () {
-      $('#history-fieldset').toggle('slow') // Alterna a visibilidade com efeito de deslizamento
-      $(this).text(function (i, text) {
-        return text === 'Fechar' ? 'Histórico' : 'Fechar'
-      })
-    })
-  })
-</script>

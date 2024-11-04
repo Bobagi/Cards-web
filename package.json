@@ -2,21 +2,28 @@
   "name": "dracomania-web",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/server/server.js",
   "scripts": {
-    "play": "tsc && node fix-extensions.js && lite-server",
-    "start": "lite-server",
-    "build": "tsc && node fix-extensions.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && npm run copy-public",
+    "copy-public": "copyfiles -u 1 \"public/**/*\" dist/public",
+    "start": "node dist/server/server.js",
+    "dev": "tsc && nodemon dist/server/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/jquery": "^3.5.31",
     "@types/node": "^22.7.5",
-    "lite-server": "^2.6.1",
-    "typescript": "^5.6.3",
-    "undici": "^6.19.8"
+    "copyfiles": "^2.4.1",
+    "nodemon": "^2.0.15",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "env": "^0.0.2",
+    "express": "^4.21.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
   }
 }

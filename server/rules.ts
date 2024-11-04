@@ -1,5 +1,5 @@
-import { attributes } from './models/attributes'
-import { card } from './models/card'
+import { attributes } from './attributes'
+import { card } from './card'
 
 export class rules {
   static compareCards(

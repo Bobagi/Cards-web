@@ -1,16 +1,12 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "es6",  // Altere para 'es6' ou 'esnext'
+    "module": "commonjs",
     "outDir": "./dist",
     "strict": true,
-    "moduleResolution": "node", // Certifica-se que o TS está resolvendo módulos corretamente
-    "esModuleInterop": true     // Facilita a interoperabilidade com módulos CommonJS
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/*.ts",
-    "src/tilt.d.ts",
-    "main.ts"  ],
+  "include": ["src/**/*.ts", "public/**/*.ts", "server/**/*.ts"],
   "exclude": ["node_modules"]
 }
