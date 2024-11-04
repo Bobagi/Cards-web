@@ -1,4 +1,7 @@
 import { io, Socket } from 'socket.io-client'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 class GameClient {
   private socket: Socket
@@ -6,7 +9,8 @@ class GameClient {
   private opponentHand: any[] = []
 
   constructor() {
-    this.socket = io('http://localhost:3050') // Conecta ao servidor Socket.IO
+    const uri = process.env.SERVER_URI + ':' + process.env.PORT || 'http://localhost:3050'
+    this.socket = io(uri) // Conecta ao servidor Socket.IO
 
     // Evento de conexão inicial
     this.socket.on('connected', (data) => {

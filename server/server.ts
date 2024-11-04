@@ -3,15 +3,16 @@ import { createServer } from 'http'
 import { Server, Socket } from 'socket.io'
 import path from 'path'
 import { Game } from './gameLogic'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 const httpServer = createServer(app)
 const io = new Server(httpServer, { cors: { origin: '*' } })
 
-// Configura o Express para servir arquivos estáticos da pasta 'public'
 app.use(express.static(path.join(__dirname, '../public')))
 
-// Rota para a página inicial (index.html)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'index.html'))
 })
@@ -52,7 +53,7 @@ io.on('connection', (socket: Socket) => {
   })
 })
 
-const PORT = 3050
+const PORT = process.env.PORT || 3050
 httpServer.listen(PORT, () => {
   console.log(`Socket.IO server running on http://localhost:${PORT}`)
 })
