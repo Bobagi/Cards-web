@@ -2,25 +2,15 @@
   "name": "dracomania-web",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server/server.js",
+  "main": "src/main.js",
+  "type": "module",
   "scripts": {
-    "build": "rm -r dist && tsc && npm run copy-public",
-    "build-non-remove": "tsc && npm run copy-public",
-    "copy-public": "copyfiles -u 1 \"public/**/*\" dist/public",
-    "start": "node dist/server/server.js",
-    "dev": "tsc && nodemon dist/server/server.js"
+    "start": "node src/main.js",
+    "dev": "node src/main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/jquery": "^3.5.31",
-    "@types/node": "^22.7.5",
-    "copyfiles": "^2.4.1",
-    "nodemon": "^2.0.15",
-    "typescript": "^5.6.3"
-  },
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1",

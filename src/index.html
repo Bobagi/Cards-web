@@ -56,30 +56,21 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="game.js"></script>
+    <script type="module" src="main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
 
     <script>
       $(document).ready(function () {
-        $('#buttonHistory').click(function () {
-          $('#history-fieldset').toggle('slow');
-          $(this).text(function (i, text) {
-            return text === 'Fechar' ? 'Histórico' : 'Fechar';
-          });
-        });
+        $('#modalMessage').show()
 
-        $('#modalMessage').show();
-
-        // Evento para iniciar o jogo ao clicar no botão "Jogar"
         $('#btnStart').click(function () {
-          $('#modalMessage').hide();
-
-          // Inicia o turno chamando o método startTurn do gameClient
+          $('#modalMessage').hide()
+          // Agora chamamos gameClient diretamente
           if (window.gameClient) {
-            window.gameClient.startTurn();
+            window.gameClient.startTurn()
           }
-        });
-      });
+        })
+      })
     </script>
 
     <style>
