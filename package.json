@@ -5,8 +5,9 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "start": "node src/main.js",
-    "dev": "node src/main.js"
+    "start": "concurrently --names WEB,SERVER --prefix-colors blue.dim,green.dim \"npm run web\" \"npm run server\"",
+    "web": "node src/main.js",
+    "server": "node backend/server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,8 @@
     "express": "^4.21.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
