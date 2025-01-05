@@ -14,7 +14,7 @@ class GameClient {
     this.socket = io(uri);
 
     this.socket.on("connected", (data) => {
-      console.log(data.message);
+      console.log("connected: ", data.message);
     });
 
     this.socket.on("update", (data) => {
@@ -23,7 +23,7 @@ class GameClient {
     });
 
     this.socket.on("gameOver", (data) => {
-      console.log(data.message);
+      console.log("gameOver: ", data.message);
       this.handleGameOver(data.message);
     });
   }

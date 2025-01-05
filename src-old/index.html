@@ -55,22 +55,31 @@
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"
+      defer
+    ></script>
 
-    <script>
+    <script type="module">
+      import { gameClient } from "./main.js"; // Importa o gameClient exportado pelo seu main.js
+
       $(document).ready(function () {
-        $('#modalMessage').show()
+        alert("test 2");
+        $("#modalMessage").show();
 
-        $('#btnStart').click(function () {
-          $('#modalMessage').hide()
-          // Agora chamamos gameClient diretamente
-          if (window.gameClient) {
-            window.gameClient.startTurn()
+        $("#btnStart").click(function () {
+          $("#modalMessage").hide();
+          // Chama a função startTurn do gameClient
+          if (gameClient) {
+            gameClient.startTurn();
+          } else {
+            console.error(
+              "gameClient não está definido. Verifique se o main.js foi carregado corretamente."
+            );
           }
-        })
-      })
+        });
+      });
     </script>
 
     <style>
