@@ -2,6 +2,7 @@
   "name": "dracomania-web",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "concurrently --names WEB,SERVER --prefix-colors blue.dim,green.dim \"npm run web\" \"npm run server\"",
     "web": "node src/main.js",
