@@ -1,17 +1,13 @@
-// @ts-nocheck
 import { io } from "socket.io-client";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 class GameClient {
   constructor() {
-    const uri =
-      `${process.env.SERVER_URI}:${process.env.PORT_SERVER}` ||
-      "http://localhost:3050";
+    const uri = `${process.env.VUE_APP_SERVER_URI}:${process.env.VUE_APP_PORT_SERVER}`;
 
-    console.log('GameClient -> uri', uri);
-    this.socket = io(uri);
+    console.log("GameClient -> uri", uri);
+    this.socket = io(uri, {
+      withCredentials: true,
+    });
 
     this.socket.on("connected", (data) => {
       console.log("connected: ", data.message);
@@ -45,7 +41,9 @@ class GameClient {
 
   handleGameOver(message) {
     console.log("Game Over:", message);
+    // Aqui você pode, por exemplo, exibir um modal de fim de jogo.
   }
 }
 
-export default GameClient;
+const gameClient = new GameClient();
+export { gameClient };
