@@ -1,9 +1,7 @@
 <template>
-  <img
-    alt="Vue logo"
-    src="./assets/logo.png"
-  >
-  <GameScreen msg="Welcome to Your Vue.js App" />
+  <div id="mainDiv">
+    <GameScreen />
+  </div>
 </template>
 
 <script>
@@ -18,6 +16,8 @@ export default {
 </script>
 
 <style>
+@import "css/styles.css";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

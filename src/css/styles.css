@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  background-color: burlywood;
 }
 
 #game-container {
@@ -157,33 +157,33 @@ body {
   transition: box-shadow 0.3s ease;
 }
 
-.stat-icon[data-stat='strength'] {
-  background-image: url('images/icons/strength_icon.png');
+.stat-icon[data-stat="strength"] {
+  background-image: url("@/assets/images/icons/strength_icon.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-.stat-icon[data-stat='magic'] {
-  background-image: url('images/icons/magic_icon.png');
+.stat-icon[data-stat="magic"] {
+  background-image: url("@/assets/images/icons/magic_icon.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-.stat-icon[data-stat='fire'] {
-  background-image: url('images/icons/fire_icon.png');
+.stat-icon[data-stat="fire"] {
+  background-image: url("@/assets/images/icons/fire_icon.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-.stat-icon[data-stat='magic']:hover {
+.stat-icon[data-stat="magic"]:hover {
   filter: drop-shadow(0 0 0.75rem blue);
 }
 
-.stat-icon[data-stat='strength']:hover {
+.stat-icon[data-stat="strength"]:hover {
   filter: drop-shadow(0 0 1rem gold);
 }
 
-.stat-icon[data-stat='fire']:hover {
+.stat-icon[data-stat="fire"]:hover {
   filter: drop-shadow(0 0 0.75rem crimson);
 }
 

@@ -34,13 +34,13 @@ export class renderService {
       this.animateCard(cardDiv, playerDeckContainer, playerHandContainer);
     });
 
-    $(".js-tilt").tilt({
-      scale: 1.2,
-      maxTilt: 15,
-      speed: 500,
-      glare: true,
-      maxGlare: 0.3,
-    });
+    // $(".js-tilt").tilt({
+    //   scale: 1.2,
+    //   maxTilt: 15,
+    //   speed: 500,
+    //   glare: true,
+    //   maxGlare: 0.3,
+    // });
     this.renderDeck(playerDeck, "playerDeckDiv");
   }
 

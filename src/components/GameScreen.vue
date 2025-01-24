@@ -2,10 +2,19 @@
   <div id="game-container">
     <div class="leftTableSide">
       <div style="align-content: center">
-        <button id="buttonHistory" @click="closeHistory">Fechar</button>
+        <button
+          id="buttonHistory"
+          @click="closeHistory"
+        >Fechar</button>
       </div>
-      <fieldset id="history-fieldset" class="fieldset-game-board">
-        <div id="history-board" class="game-board"></div>
+      <fieldset
+        id="history-fieldset"
+        class="fieldset-game-board"
+      >
+        <div
+          id="history-board"
+          class="game-board"
+        ></div>
       </fieldset>
     </div>
 
@@ -15,27 +24,49 @@
           <p>Opponent's hand</p>
         </div>
         <div id="opponent-hand">
-          <transition-group name="card-animation" tag="div">
+          <transition-group
+            name="card-animation"
+            tag="div"
+          >
             <div
               v-for="(card, index) in opponentHand"
               :key="index"
               class="card opponent-card"
             >
-              <img src="images/card_back.png" alt="CardContent Back" class="card-art" />
+              <img
+                src="images/card_back.png"
+                alt="CardContent Back"
+                class="card-art"
+              />
             </div>
           </transition-group>
         </div>
         <div id="opponentDeckDiv">
-          <CardBack v-if="opponentDeck.length > 0" :count="opponentDeck.length" />
+          <CardBack
+            v-if="opponentDeck.length > 0"
+            :count="opponentDeck.length"
+          />
         </div>
       </div>
 
-      <div id="middle-section" style="display: flex">
+      <div
+        id="middle-section"
+        style="display: flex"
+      >
         <div>
           <fieldset class="fieldset-game-board">
-            <div id="card-board" class="game-board">
-              <div id="Player-card-board" class="card-board">
-                <transition-group name="card-animation" tag="div">
+            <div
+              id="card-board"
+              class="game-board"
+            >
+              <div
+                id="Player-card-board"
+                class="card-board"
+              >
+                <transition-group
+                  name="card-animation"
+                  tag="div"
+                >
                   <CardContent
                     v-for="card in playerBoard"
                     :key="card.id"
@@ -44,8 +75,14 @@
                   />
                 </transition-group>
               </div>
-              <div id="Opponent-card-board" class="card-board">
-                <transition-group name="card-animation" tag="div">
+              <div
+                id="Opponent-card-board"
+                class="card-board"
+              >
+                <transition-group
+                  name="card-animation"
+                  tag="div"
+                >
                   <CardContent
                     v-for="card in opponentBoard"
                     :key="card.id"
@@ -64,7 +101,10 @@
           <p>Player's hand</p>
         </div>
         <div id="player-hand">
-          <transition-group name="card-animation" tag="div">
+          <transition-group
+            name="card-animation"
+            tag="div"
+          >
             <CardContent
               v-for="(card, index) in playerHand"
               :key="card.id"
@@ -74,17 +114,30 @@
           </transition-group>
         </div>
         <div id="playerDeckDiv">
-          <CardBack v-if="playerDeck.length > 0" :count="playerDeck.length" />
+          <CardBack
+            v-if="playerDeck.length > 0"
+            :count="playerDeck.length"
+          />
         </div>
       </div>
     </div>
 
-    <div id="modalMessage" class="modal" v-if="modalVisible">
+    <div
+      id="modalMessage"
+      class="modal"
+      v-if="modalVisible"
+    >
       <div class="modal-content">
-        <span class="close-button" @click="closeModal">&times;</span>
+        <span
+          class="close-button"
+          @click="closeModal"
+        >&times;</span>
         <h2>Dracomania</h2>
         <p>Iniciar jogo</p>
-        <button id="btnStart" @click="startGame">Jogar</button>
+        <button
+          id="btnStart"
+          @click="startGame"
+        >Jogar</button>
       </div>
     </div>
   </div>
@@ -156,37 +209,7 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos específicos do componente (scoped) */
-#game-container {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-}
-
-.leftTableSide,
-.rightTableSide {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.hand {
-  text-align: center;
-}
-
-.game-board {
-  width: 400px;
-  height: 300px;
-  border: 1px solid black;
-}
-
-.card-board {
-  display: flex;
-  flex-direction: column;
-  gap: 100px;
-}
+@import "../css/board.css";
 
 .modal {
   position: fixed;
@@ -218,7 +241,6 @@ export default {
   cursor: pointer;
 }
 
-/* Animações */
 .card-animation-enter-active,
 .card-animation-leave-active {
   transition: all 0.5s ease;
