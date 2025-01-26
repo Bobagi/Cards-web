@@ -1,4 +1,4 @@
-# Dracomania-web
+# Cards-web
 
 ## Project setup
 
