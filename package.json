@@ -4,8 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "concurrently --names WEB,SERVER --prefix-colors blue.dim,green.dim \"npm run web\" \"npm run server\"",
-    "web": "node src/main.js",
+    "start": "concurrently --names SERVER,WEB --prefix-colors blue.dim,green.dim \"npm run server\" \"npm run serve\"",
     "server": "node backend/server.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
