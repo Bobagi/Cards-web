@@ -165,13 +165,6 @@ export default {
       opponentBoard: [],
     };
   },
-  mounted() {
-    // O modal é exibido por padrão quando o componente é montado
-    gameClient.socket.on("update", (data) => {
-      console.log("Game state updated:", data.state);
-      this.updateGameState(data.state);
-    });
-  },
   methods: {
     closeModal() {
       this.modalVisible = false;
@@ -179,9 +172,10 @@ export default {
     startGame() {
       this.modalVisible = false;
       if (gameClient) {
-        gameClient.startTurn();
+        gameClient.connect();
+        // gameClient.startTurn();
       } else {
-        console.error("gameClient não está definido.");
+        console.error("gameClient is not defined.");
       }
     },
     closeHistory() {

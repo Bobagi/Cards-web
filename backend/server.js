@@ -8,7 +8,13 @@ dotenv.config();
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer, { cors: { origin: "*" } });
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: process.env.ALLOWED_ORIGIN, // url of front application
+    credentials: true,
+  },
+});
 
 const gameInstance = new Game();
 

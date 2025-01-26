@@ -1,4 +1,5 @@
 const { defineConfig } = require("@vue/cli-service");
+require("dotenv").config();
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -11,15 +12,15 @@ module.exports = defineConfig({
     },
   },
   devServer: {
-    host: "0.0.0.0", // Exponha para ser acessível no Codespaces
-    port: 8080, // Porta padrão
-    //https: true, // Força HTTPS
-    //allowedHosts: "all", // Permite qualquer host se conectar
+    host: "0.0.0.0", // Expose to be accessible in Codespaces
+    port: process.env.PORT_WEB || 3000,
+    // https: true, // Force HTTPS
+    // allowedHosts: "all", // Allow any host to connect
     client: {
       webSocketURL: {
         hostname: "0.0.0.0",
-        port: 443, // Porta HTTPS padrão
-        protocol: "wss", // Use WebSocket seguro
+        port: 443, // Standard HTTPS port
+        protocol: "wss", // Use secure WebSocket
       },
     },
   },

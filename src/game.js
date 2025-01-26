@@ -1,9 +1,13 @@
+/* eslint-disable */
 import { io } from "socket.io-client";
 
 class GameClient {
   constructor() {
-    const uri = `${process.env.VUE_APP_SERVER_URI}:${process.env.VUE_APP_PORT_SERVER}`;
+    // Empty constructor
+  }
 
+  connect() {
+    const uri = process.env.VUE_APP_SERVER_URI;
     console.log("GameClient -> uri", uri);
     this.socket = io(uri, {
       withCredentials: true,
@@ -14,24 +18,40 @@ class GameClient {
     });
 
     this.socket.on("update", (data) => {
-      console.log("Game state updated:", data.state);
-      this.updateGameState(data.state);
+      try {
+        console.log("Game state updated:", data.state);
+        this.updateGameState(data.state);
+      } catch (error) {
+        console.error("Error handling 'update' event:", error);
+      }
     });
 
     this.socket.on("gameOver", (data) => {
-      console.log("gameOver: ", data.message);
-      this.handleGameOver(data.message);
+      try {
+        console.log("gameOver: ", data.message);
+        this.handleGameOver(data.message);
+      } catch (error) {
+        console.error("Error handling 'gameOver' event:", error);
+      }
     });
   }
 
   startTurn() {
     console.log("Sending startTurn to server");
-    this.socket.emit("startTurn");
+    try {
+      this.socket.emit("startTurn");
+    } catch (error) {
+      console.error("Error emitting 'startTurn' event:", error);
+    }
   }
 
   selectCard(index) {
     console.log(`Sending selectCard with index: ${index}`);
-    this.socket.emit("selectCard", { index });
+    try {
+      this.socket.emit("selectCard", { index });
+    } catch (error) {
+      console.error("Error emitting 'selectCard' event:", error);
+    }
   }
 
   updateGameState(state) {
@@ -41,7 +61,6 @@ class GameClient {
 
   handleGameOver(message) {
     console.log("Game Over:", message);
-    // Aqui você pode, por exemplo, exibir um modal de fim de jogo.
   }
 }
 
